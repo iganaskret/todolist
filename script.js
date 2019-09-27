@@ -7,10 +7,9 @@ form.addEventListener("submit", evt => {
   evt.preventDefault();
 
   const inputData = {
-    bandname: form.elements.bandname.value,
-    musicgenre: form.elements.genre.value,
-    nrofmembers: form.elements.nrofmembers.value,
-    songtitle: form.elements.song.value
+    task: form.elements.task.value,
+    category: form.elements.genre.value,
+    taskmanager: form.elements.taskmanager.value
   };
   post(inputData);
 });
@@ -25,17 +24,17 @@ function get() {
     }
   })
     .then(e => e.json())
-    .then(bands => {
-      console.log(bands);
-      bands.forEach(addBandToDOM);
+    .then(tasks => {
+      console.log(tasks);
+      tasks.forEach(addTaskToDOM);
     });
 }
 get();
 
-function addBandToDOM(band) {
+function addTaskToDOM(band) {
   const template = document.querySelector("template").content;
   const clone = template.cloneNode(true);
-  const formEdit = clone.querySelector("form#editform");
+  // const formEdit = clone.querySelector("form#editform");
   clone.querySelector("article").dataset.bandid = band._id;
   clone.querySelector(".flip-card").dataset.bandid = band._id;
   formEdit.dataset.bandid = band._id;
