@@ -7,10 +7,9 @@ form.addEventListener("submit", evt => {
   evt.preventDefault();
 
   const inputData = {
-    bandname: form.elements.bandname.value,
-    musicgenre: form.elements.genre.value,
-    nrofmembers: form.elements.nrofmembers.value,
-    songtitle: form.elements.song.value
+    task: form.elements.task.value,
+    category: form.elements.category.value,
+    taskmanager: form.elements.taskmanager.value
   };
   post(inputData);
 });
@@ -20,153 +19,147 @@ function get() {
     method: "get",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "x-apikey": "5d887ce8fd86cb75861e2623",
+      "x-apikey": "5d8e0ae91ce70f63798550a9",
       "cache-control": "no-cache"
     }
   })
     .then(e => e.json())
-    .then(bands => {
-      console.log(bands);
-      bands.forEach(addBandToDOM);
+    .then(tasks => {
+      console.log(tasks);
+      tasks.forEach(addTaskToDOM);
     });
 }
 get();
 
-function addBandToDOM(band) {
+function addTaskToDOM(task) {
   const template = document.querySelector("template").content;
   const clone = template.cloneNode(true);
   const formEdit = clone.querySelector("form#editform");
-  clone.querySelector("article").dataset.bandid = band._id;
-  clone.querySelector(".flip-card").dataset.bandid = band._id;
-  formEdit.dataset.bandid = band._id;
-  clone.querySelector("h1").textContent = band.bandname;
-  clone.querySelector("h2").textContent = band.musicgenre;
-  clone.querySelector("h3").textContent = band.nrofmembers;
-  clone.querySelector("p").textContent = band.songtitle;
+  clone.querySelector("article").dataset.taskid = task._id;
+  clone.querySelector(".flip-card").dataset.taskid = task._id;
+  formEdit.dataset.taskid = task._id;
+  clone.querySelector("h1").textContent = task.task;
+  clone.querySelector("h2").textContent = task.category;
+  clone.querySelector("h3").textContent = task.taskmanager;
 
   formEdit.addEventListener("submit", evt => {
     evt.preventDefault();
-    put(band._id);
+    put(task._id);
   });
 
   clone.querySelector(".delete").addEventListener("click", () => {
-    deleteBand(band._id);
+    deleteTask(task._id);
   });
 
   clone.querySelector(".edit").addEventListener("click", () => {
-    clickedDetails(band._id);
+    clickedDetails(task._id);
   });
   clone.querySelector(".cancel").addEventListener("click", () => {
-    cancelDetails(band._id);
+    cancelDetails(task._id);
   });
 
   document.querySelector(".app").prepend(clone);
 }
 
 function clickedDetails(id) {
-  const clickedBand = document.querySelector(`.flip-card[data-bandid="${id}"`);
-  clickedBand.classList.add("clicked");
+  const clickedTask = document.querySelector(`.flip-card[data-taskid="${id}"`);
+  clickedTask.classList.add("clicked");
   editBand(id);
 }
 
 function cancelDetails(id) {
-  const clickedBand = document.querySelector(`.flip-card[data-bandid="${id}"`);
-  clickedBand.classList.remove("clicked");
+  const clickedTask = document.querySelector(`.flip-card[data-taskid="${id}"`);
+  clickedTask.classList.remove("clicked");
 }
 
 function post(inputData) {
-  addBandToDOM(inputData);
+  addTaskToDOM(inputData);
   const postData = JSON.stringify(inputData);
-  fetch("https://bandsdatabase-76bc.restdb.io/rest/bands", {
+  fetch("https://todolist-ebac.restdb.io/rest/todolist", {
     method: "post",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "x-apikey": "5d887ce8fd86cb75861e2623",
+      "x-apikey": "5d8e0ae91ce70f63798550a9",
       "cache-control": "no-cache"
     },
     body: postData
   })
     .then(res => res.json())
     .then(() => {
-      form.elements.bandname.value = "";
-      form.elements.genre.value = "";
-      form.elements.nrofmembers.value = "";
-      form.elements.song.value = "";
+      form.elements.task.value = "";
+      form.elements.category.value = "";
+      form.elements.taskmanager.value = "";
     });
 }
 
 function put(id) {
-  const formEdit = document.querySelector(`#editform[data-bandid="${id}"`);
+  const formEdit = document.querySelector(`#editform[data-taskid="${id}"`);
   const data = {
-    bandname: formEdit.elements.bandname.value,
-    genre: formEdit.elements.genre.value,
-    nrofmembers: formEdit.elements.nrofmembers.value,
-    songtitle: formEdit.elements.song.value
+    task: formEdit.elements.task.value,
+    category: formEdit.elements.category.value,
+    taskmanager: formEdit.elements.taskmanager.value
   };
   const postData = JSON.stringify(data);
   fetch(
-    "https://bandsdatabase-76bc.restdb.io/rest/bands/" +
+    "https://todolist-ebac.restdb.io/rest/todolist/" +
       formEdit.elements.id.value,
     {
       method: "put",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5d887ce8fd86cb75861e2623",
+        "x-apikey": "5d8e0ae91ce70f63798550a9",
         "cache-control": "no-cache"
       },
       body: postData
     }
   )
     .then(res => res.json())
-    .then(updatedBand => {
+    .then(updatedTask => {
       const parentElement = document.querySelector(
-        `article[data-bandid="${updatedBand._id}"`
+        `article[data-taskid="${updatedTask._id}"`
       );
-      parentElement.querySelector("h1").textContent = updatedBand.bandname;
-      parentElement.querySelector("h2").textContent = updatedBand.genre;
-      parentElement.querySelector("h3").textContent = updatedBand.nrofmembers;
-      parentElement.querySelector("p").textContent = updatedBand.songtitle;
-      formEdit.elements.bandname.value = "";
-      formEdit.elements.genre.value = "";
-      formEdit.elements.nrofmembers.value = "";
-      formEdit.elements.song.value = "";
+      parentElement.querySelector("h1").textContent = updatedTask.task;
+      parentElement.querySelector("h2").textContent = updatedTask.category;
+      parentElement.querySelector("h3").textContent = updatedTask.taskmanager;
+      formEdit.elements.task.value = "";
+      formEdit.elements.category.value = "";
+      formEdit.elements.taskmanager.value = "";
       formEdit.elements.id.value = "";
-      cancelDetails(updatedBand._id);
+      cancelDetails(updatedTask._id);
     });
 }
 
-function deleteBand(id) {
-  fetch("https://bandsdatabase-76bc.restdb.io/rest/bands/" + id, {
+function deleteTask(id) {
+  fetch("https://todolist-ebac.restdb.io/rest/todolist/" + id, {
     method: "delete",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "x-apikey": "5d887ce8fd86cb75861e2623",
+      "x-apikey": "5d8e0ae91ce70f63798550a9",
       "cache-control": "no-cache"
     }
   })
     .then(res => res.json())
     .then(data => {
       //delete from DOM
-      document.querySelector(`.flip-card[data-bandid="${id}"`).remove();
+      document.querySelector(`.flip-card[data-taskid="${id}"`).remove();
     });
 }
 
 function editBand(id) {
-  fetch(`https://bandsdatabase-76bc.restdb.io/rest/bands/${id}`, {
+  fetch(`https://todolist-ebac.restdb.io/rest/todolist/${id}`, {
     method: "get",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "x-apikey": "5d887ce8fd86cb75861e2623",
+      "x-apikey": "5d8e0ae91ce70f63798550a9",
       "cache-control": "no-cache"
     }
   })
     .then(e => e.json())
-    .then(bands => {
-      const formEdit = document.querySelector(`#editform[data-bandid="${id}"`);
-      formEdit.elements.bandname.value = bands.bandname;
-      formEdit.elements.genre.value = bands.musicgenre;
-      formEdit.elements.nrofmembers.value = bands.nrofmembers;
-      formEdit.elements.song.value = bands.songtitle;
-      formEdit.elements.id.value = bands._id;
+    .then(tasks => {
+      const formEdit = document.querySelector(`#editform[data-taskid="${id}"`);
+      formEdit.elements.task.value = tasks.task;
+      formEdit.elements.category.value = tasks.category;
+      formEdit.elements.taskmanager.value = tasks.taskmanager;
+      formEdit.elements.id.value = tasks._id;
     });
 }
