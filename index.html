@@ -9,50 +9,29 @@
   </head>
   <body>
     <form id="addform">
-      <input
-        type="text"
-        name="bandname"
-        id="bandname"
-        placeholder="&nbsp;"
-        required
-      />
-      <label for="bandname">
-        Band name
+      <input type="text" name="task" id="task" required />
+      <label for="task">
+        Task
       </label>
 
-      <input
-        list="genres"
-        id="genre"
-        name="genre"
-        placeholder="&nbsp;"
-        required
-      />
-      <datalist id="genres">
-        <option value="Rock"> </option>
-        <option value="Punk"> </option>
-        <option value="Hip Hop"> </option>
-        <option value="Heavy metal"> </option>
-        <option value="Indie"> </option>
-        <option value="Alternative"> </option>
-        <option value="Classical music"> </option>
+      <input list="categories" id="category" name="category" required />
+      <datalist id="categories">
+        <option value="Home"> </option>
+        <option value="School"> </option>
+        <option value="Work"> </option>
+        <option value="Friends"> </option>
+        <option value="Hobby"> </option>
+        <option value="Travel"> </option>
+        <option value="Other"> </option>
       </datalist>
-      <label for="genre">Music genre</label>
+      <label for="category">Category</label>
 
-      <input
-        type="number"
-        name="nrofmembers"
-        id="nr-of-members"
-        placeholder="&nbsp;"
-        required
-      />
-      <label for="nr-of-members">
-        Number of members
+      <input type="text" name="taskmanager" id="taskmanager" required />
+      <label for="taskmanager">
+        Task Manager
       </label>
 
-      <input type="text" name="song" id="song" placeholder="&nbsp;" />
-      <label for="song"> Song title </label>
-
-      <button type="submit" name="submit" class="add">Add band</button>
+      <button type="submit" name="submit" class="add">Add task</button>
     </form>
 
     <div class="app"></div>
@@ -72,30 +51,26 @@
           </div>
           <div class="flip-card-back">
             <form id="editform">
-              <label for="bandname">
-                Band name
-                <input type="text" name="bandname" id="bandname" required />
+              <input type="text" name="task" id="task" required />
+              <label for="task">
+                Task
               </label>
 
-              <label for="genre">Music genre</label>
-              <input list="genres" id="genre" name="genre" />
-              <datalist id="genres">
-                <option value="Rock"> </option>
-                <option value="Punk"> </option>
-                <option value="Hip Hop"> </option>
-                <option value="Heavy metal"> </option>
-                <option value="Indie"> </option>
-                <option value="Alternative"> </option>
-                <option value="Classical music"> </option>
+              <input list="categories" id="category" name="category" required />
+              <datalist id="categories">
+                <option value="Home"> </option>
+                <option value="School"> </option>
+                <option value="Work"> </option>
+                <option value="Friends"> </option>
+                <option value="Hobby"> </option>
+                <option value="Travel"> </option>
+                <option value="Other"> </option>
               </datalist>
+              <label for="category">Category</label>
 
-              <label for="nr-of-members">
-                Number of members
-                <input type="number" name="nrofmembers" id="nr-of-members" />
-              </label>
-              <label for="song">
-                Song title
-                <input type="text" name="song" id="song" />
+              <input type="text" name="taskmanager" id="taskmanager" required />
+              <label for="taskmanager">
+                Task Manager
               </label>
 
               <input type="hidden" name="id" />
