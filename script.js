@@ -42,6 +42,11 @@ function addTaskToDOM(task) {
   clone.querySelector("h2").textContent = task.category;
   clone.querySelector("h3").textContent = task.taskmanager;
 
+  if (task.doing) {
+    clone.querySelector("article").classList.add("doing");
+    clone.querySelector("button.doing").textContent = "todo";
+  }
+
   formEdit.addEventListener("submit", evt => {
     evt.preventDefault();
     put(task._id);
@@ -132,12 +137,23 @@ function put(id) {
 
 function putDoing(id) {
   const parentTask = document.querySelector(`article[data-taskid="${id}"`);
-  const data = {
-    task: parentTask.querySelector("h1").textContent,
-    category: parentTask.querySelector("h2").textContent,
-    taskmanager: parentTask.querySelector("h3").textContent,
-    doing: true
-  };
+  let data = {};
+  if (parentTask.classList.contains("doing")) {
+    data = {
+      task: parentTask.querySelector("h1").textContent,
+      category: parentTask.querySelector("h2").textContent,
+      taskmanager: parentTask.querySelector("h3").textContent,
+      doing: false
+    };
+  } else {
+    data = {
+      task: parentTask.querySelector("h1").textContent,
+      category: parentTask.querySelector("h2").textContent,
+      taskmanager: parentTask.querySelector("h3").textContent,
+      doing: true
+    };
+  }
+
   const postData = JSON.stringify(data);
   fetch("https://todolist-ebac.restdb.io/rest/todolist/" + id, {
     method: "put",
@@ -150,11 +166,16 @@ function putDoing(id) {
   })
     .then(res => res.json())
     .then(updatedTask => {
-      console.log(updatedTask);
       const parentElement = document.querySelector(
         `article[data-taskid="${updatedTask._id}"`
       );
-      parentElement.classList.add("doing");
+      if (updatedTask.doing) {
+        parentElement.classList.add("doing");
+        parentElement.querySelector("button.doing").textContent = "todo";
+      } else {
+        parentElement.classList.remove("doing");
+        parentElement.querySelector("button.doing").textContent = "doing";
+      }
     });
 }
 
