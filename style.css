@@ -1,0 +1,148 @@
+* {
+  font-family: sans-serif;
+  place-items: center;
+}
+
+#addform {
+  border: 1px black solid;
+  padding: 10px;
+  width: 30%;
+  background-color: aliceblue;
+  margin-bottom: 2em;
+}
+
+#addform input {
+  width: 100%;
+  padding: 12px 8px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid rgb(172, 171, 171);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+/* floating label */
+/* ---------------------LABELS */
+label {
+  font-size: 2rem;
+  font-weight: 200;
+}
+
+.text-label {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in;
+}
+
+input:placeholder-shown + .text-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-1rem);
+}
+
+/* end */
+
+#addform input:not(:focus):invalid {
+  border: 2px #ccc solid;
+}
+
+#addform input:valid:not(:placeholder-shown):not(:focus) {
+  border: 2px green solid;
+}
+
+form button {
+  padding: 9px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 250px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.clicked .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: dodgerblue;
+  transform: rotateY(180deg);
+  text-align: left;
+}
+
+/* Edit form */
+#editform {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+#editform input {
+  padding: 4px 2px;
+  margin: 4px 0;
+  width: 80%;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+#editform label {
+  font-size: 0.7em;
+}
+
+#editform .edit {
+  margin-top: 15px;
+  background-color: lightgray;
+  width: 30%;
+  position: absolute;
+  right: 10%;
+  bottom: 5px;
+}
+
+#editform .cancel {
+  margin-top: 15px;
+  background-color: lightgray;
+  width: 30%;
+  position: absolute;
+  left: 10%;
+  bottom: 5px;
+}

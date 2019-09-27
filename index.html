@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="addform">
+      <input
+        type="text"
+        name="bandname"
+        id="bandname"
+        placeholder="&nbsp;"
+        required
+      />
+      <label for="bandname">
+        Band name
+      </label>
+
+      <input
+        list="genres"
+        id="genre"
+        name="genre"
+        placeholder="&nbsp;"
+        required
+      />
+      <datalist id="genres">
+        <option value="Rock"> </option>
+        <option value="Punk"> </option>
+        <option value="Hip Hop"> </option>
+        <option value="Heavy metal"> </option>
+        <option value="Indie"> </option>
+        <option value="Alternative"> </option>
+        <option value="Classical music"> </option>
+      </datalist>
+      <label for="genre">Music genre</label>
+
+      <input
+        type="number"
+        name="nrofmembers"
+        id="nr-of-members"
+        placeholder="&nbsp;"
+        required
+      />
+      <label for="nr-of-members">
+        Number of members
+      </label>
+
+      <input type="text" name="song" id="song" placeholder="&nbsp;" />
+      <label for="song"> Song title </label>
+
+      <button type="submit" name="submit" class="add">Add band</button>
+    </form>
+
+    <div class="app"></div>
+
+    <template>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <article>
+              <h1></h1>
+              <h2></h2>
+              <h3></h3>
+              <p></p>
+              <button class="edit">edit me</button>
+              <button class="delete">delete me</button>
+            </article>
+          </div>
+          <div class="flip-card-back">
+            <form id="editform">
+              <label for="bandname">
+                Band name
+                <input type="text" name="bandname" id="bandname" required />
+              </label>
+
+              <label for="genre">Music genre</label>
+              <input list="genres" id="genre" name="genre" />
+              <datalist id="genres">
+                <option value="Rock"> </option>
+                <option value="Punk"> </option>
+                <option value="Hip Hop"> </option>
+                <option value="Heavy metal"> </option>
+                <option value="Indie"> </option>
+                <option value="Alternative"> </option>
+                <option value="Classical music"> </option>
+              </datalist>
+
+              <label for="nr-of-members">
+                Number of members
+                <input type="number" name="nrofmembers" id="nr-of-members" />
+              </label>
+              <label for="song">
+                Song title
+                <input type="text" name="song" id="song" />
+              </label>
+
+              <input type="hidden" name="id" />
+              <button name="cancel" class="cancel">
+                Cancel
+              </button>
+              <button type="submit" name="submit" class="edit">
+                Save changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </template>
+    <script src="script.js"></script>
+  </body>
+</html>
