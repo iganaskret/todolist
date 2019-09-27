@@ -8,10 +8,8 @@ form.addEventListener("submit", evt => {
 
   const inputData = {
     task: form.elements.task.value,
-    category: form.elements.genre.value,
-    taskmanager: form.elements.taskmanager.value,
-    todo: form.elements.todo.value,
-    doing: form.elements.doing.value
+    category: form.elements.category.value,
+    taskmanager: form.elements.taskmanager.value
   };
   post(inputData);
 });
@@ -39,7 +37,7 @@ function addTaskToDOM(task) {
   const formEdit = clone.querySelector("form#editform");
   clone.querySelector("article").dataset.taskid = task._id;
   clone.querySelector(".flip-card").dataset.taskid = task._id;
-  formEdit.dataset.bandid = task._id;
+  formEdit.dataset.taskid = task._id;
   clone.querySelector("h1").textContent = task.task;
   clone.querySelector("h2").textContent = task.category;
   clone.querySelector("h3").textContent = task.taskmanager;
@@ -75,7 +73,7 @@ function cancelDetails(id) {
 }
 
 function post(inputData) {
-  addBandToDOM(inputData);
+  addTaskToDOM(inputData);
   const postData = JSON.stringify(inputData);
   fetch("https://todolist-ebac.restdb.io/rest/todolist", {
     method: "post",
@@ -95,12 +93,11 @@ function post(inputData) {
 }
 
 function put(id) {
-  const formEdit = document.querySelector(`#editform[data-bandid="${id}"`);
+  const formEdit = document.querySelector(`#editform[data-taskid="${id}"`);
   const data = {
-    bandname: formEdit.elements.bandname.value,
-    genre: formEdit.elements.genre.value,
-    nrofmembers: formEdit.elements.nrofmembers.value,
-    songtitle: formEdit.elements.song.value
+    task: formEdit.elements.task.value,
+    category: formEdit.elements.category.value,
+    taskmanager: formEdit.elements.taskmanager.value
   };
   const postData = JSON.stringify(data);
   fetch(
@@ -117,20 +114,18 @@ function put(id) {
     }
   )
     .then(res => res.json())
-    .then(updatedBand => {
+    .then(updatedTask => {
       const parentElement = document.querySelector(
-        `article[data-bandid="${updatedBand._id}"`
+        `article[data-taskid="${updatedTask._id}"`
       );
-      parentElement.querySelector("h1").textContent = updatedBand.bandname;
-      parentElement.querySelector("h2").textContent = updatedBand.genre;
-      parentElement.querySelector("h3").textContent = updatedBand.nrofmembers;
-      parentElement.querySelector("p").textContent = updatedBand.songtitle;
-      formEdit.elements.bandname.value = "";
-      formEdit.elements.genre.value = "";
-      formEdit.elements.nrofmembers.value = "";
-      formEdit.elements.song.value = "";
+      parentElement.querySelector("h1").textContent = updatedTask.task;
+      parentElement.querySelector("h2").textContent = updatedTask.category;
+      parentElement.querySelector("h3").textContent = updatedTask.taskmanager;
+      formEdit.elements.task.value = "";
+      formEdit.elements.category.value = "";
+      formEdit.elements.taskmanager.value = "";
       formEdit.elements.id.value = "";
-      cancelDetails(updatedBand._id);
+      cancelDetails(updatedTask._id);
     });
 }
 
@@ -146,7 +141,7 @@ function deleteTask(id) {
     .then(res => res.json())
     .then(data => {
       //delete from DOM
-      document.querySelector(`.flip-card[data-bandid="${id}"`).remove();
+      document.querySelector(`.flip-card[data-taskid="${id}"`).remove();
     });
 }
 
@@ -160,12 +155,11 @@ function editBand(id) {
     }
   })
     .then(e => e.json())
-    .then(bands => {
-      const formEdit = document.querySelector(`#editform[data-bandid="${id}"`);
-      formEdit.elements.bandname.value = bands.bandname;
-      formEdit.elements.genre.value = bands.musicgenre;
-      formEdit.elements.nrofmembers.value = bands.nrofmembers;
-      formEdit.elements.song.value = bands.songtitle;
-      formEdit.elements.id.value = bands._id;
+    .then(tasks => {
+      const formEdit = document.querySelector(`#editform[data-taskid="${id}"`);
+      formEdit.elements.task.value = tasks.task;
+      formEdit.elements.category.value = tasks.category;
+      formEdit.elements.taskmanager.value = tasks.taskmanager;
+      formEdit.elements.id.value = tasks._id;
     });
 }
