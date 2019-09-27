@@ -5,7 +5,7 @@
 
 #addform {
   border: 1px black solid;
-  padding: 30px;
+  padding: 10px;
   width: 30%;
   background-color: aliceblue;
   margin-bottom: 2em;
@@ -25,7 +25,7 @@
 /* floating label */
 /* ---------------------LABELS */
 label {
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: 200;
 }
 
@@ -33,21 +33,10 @@ label {
   display: block;
   opacity: 1;
   visibility: visible;
-  font-size: 1rem;
-  transition: all 0.4s ease-in;
-  transform: translateY(-70px);
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in;
 }
 
-.text-label-edit {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  font-size: 1rem;
-  transition: all 0.4s ease-in;
-  transform: translateY(-50px);
-}
-
-input:placeholder-shown + .text-label,
 input:placeholder-shown + .text-label {
   opacity: 0;
   visibility: hidden;
@@ -121,7 +110,6 @@ form button {
   width: 100%;
   height: 100%;
   padding: 10px;
-  padding-top: 40px;
   padding-left: 10%;
   padding-right: 10%;
 }
@@ -129,7 +117,6 @@ form button {
 #editform input {
   padding: 4px 2px;
   margin: 4px 0;
-  margin-bottom: 10px;
   width: 80%;
   display: block;
   border: 1px solid #ccc;
