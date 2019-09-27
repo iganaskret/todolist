@@ -58,6 +58,10 @@ function addTaskToDOM(task) {
     cancelDetails(task._id);
   });
 
+  clone.querySelector("button.doing").addEventListener("click", () => {
+    putDoing(task._id);
+  });
+
   document.querySelector(".app").prepend(clone);
 }
 
@@ -100,21 +104,18 @@ function put(id) {
     taskmanager: formEdit.elements.taskmanager.value
   };
   const postData = JSON.stringify(data);
-  fetch(
-    "https://todolist-ebac.restdb.io/rest/todolist/" +
-      formEdit.elements.id.value,
-    {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5d8e0ae91ce70f63798550a9",
-        "cache-control": "no-cache"
-      },
-      body: postData
-    }
-  )
+  fetch("https://todolist-ebac.restdb.io/rest/todolist/" + id, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5d8e0ae91ce70f63798550a9",
+      "cache-control": "no-cache"
+    },
+    body: postData
+  })
     .then(res => res.json())
     .then(updatedTask => {
+      console.log(updatedTask);
       const parentElement = document.querySelector(
         `article[data-taskid="${updatedTask._id}"`
       );
@@ -126,6 +127,34 @@ function put(id) {
       formEdit.elements.taskmanager.value = "";
       formEdit.elements.id.value = "";
       cancelDetails(updatedTask._id);
+    });
+}
+
+function putDoing(id) {
+  const parentTask = document.querySelector(`article[data-taskid="${id}"`);
+  const data = {
+    task: parentTask.querySelector("h1").textContent,
+    category: parentTask.querySelector("h2").textContent,
+    taskmanager: parentTask.querySelector("h3").textContent,
+    doing: true
+  };
+  const postData = JSON.stringify(data);
+  fetch("https://todolist-ebac.restdb.io/rest/todolist/" + id, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5d8e0ae91ce70f63798550a9",
+      "cache-control": "no-cache"
+    },
+    body: postData
+  })
+    .then(res => res.json())
+    .then(updatedTask => {
+      console.log(updatedTask);
+      const parentElement = document.querySelector(
+        `article[data-taskid="${updatedTask._id}"`
+      );
+      parentElement.classList.add("doing");
     });
 }
 
@@ -157,6 +186,7 @@ function editBand(id) {
     .then(e => e.json())
     .then(tasks => {
       const formEdit = document.querySelector(`#editform[data-taskid="${id}"`);
+      console.log(formEdit);
       formEdit.elements.task.value = tasks.task;
       formEdit.elements.category.value = tasks.category;
       formEdit.elements.taskmanager.value = tasks.taskmanager;
