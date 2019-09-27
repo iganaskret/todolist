@@ -16,7 +16,7 @@ form.addEventListener("submit", evt => {
 });
 
 function get() {
-  fetch("https://bandsdatabase-76bc.restdb.io/rest/bands", {
+  fetch("https://todolist-ebac.restdb.io/rest/todolist", {
     method: "get",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
