@@ -9,12 +9,19 @@
   </head>
   <body>
     <form id="addform">
-      <input type="text" name="task" id="task" required />
-      <label for="task">
+      <input type="text" name="task" id="task" placeholder="task" required />
+      <label for="task" class="text-label">
         Task
       </label>
 
-      <input list="categories" id="category" name="category" required />
+      <input
+        list="categories"
+        id="category"
+        name="category"
+        placeholder="category"
+        required
+      />
+      <label for="category" class="text-label">Category</label>
       <datalist id="categories">
         <option value="Home"> </option>
         <option value="School"> </option>
@@ -24,10 +31,15 @@
         <option value="Travel"> </option>
         <option value="Other"> </option>
       </datalist>
-      <label for="category">Category</label>
 
-      <input type="text" name="taskmanager" id="taskmanager" required />
-      <label for="taskmanager">
+      <input
+        type="text"
+        name="taskmanager"
+        id="taskmanager"
+        placeholder="taskmanager"
+        required
+      />
+      <label for="taskmanager" class="text-label">
         Task Manager
       </label>
 
@@ -51,12 +63,25 @@
           </div>
           <div class="flip-card-back">
             <form id="editform">
-              <input type="text" name="task" id="task" required />
-              <label for="task">
+              <input
+                type="text"
+                name="task"
+                id="task"
+                placeholder="task"
+                required
+              />
+              <label for="task" class="text-label-edit">
                 Task
               </label>
 
-              <input list="categories" id="category" name="category" required />
+              <input
+                list="categories"
+                id="category"
+                name="category"
+                placeholder="category"
+                required
+              />
+              <label for="category" class="text-label-edit">Category</label>
               <datalist id="categories">
                 <option value="Home"> </option>
                 <option value="School"> </option>
@@ -66,10 +91,15 @@
                 <option value="Travel"> </option>
                 <option value="Other"> </option>
               </datalist>
-              <label for="category">Category</label>
 
-              <input type="text" name="taskmanager" id="taskmanager" required />
-              <label for="taskmanager">
+              <input
+                type="text"
+                name="taskmanager"
+                id="taskmanager"
+                placeholder="taskmanager"
+                required
+              />
+              <label for="taskmanager" class="text-label-edit">
                 Task Manager
               </label>
 
