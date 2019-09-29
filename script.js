@@ -66,8 +66,12 @@ function addTaskToDOM(task) {
   clone.querySelector("button.doing").addEventListener("click", () => {
     putDoing(task._id);
   });
-
-  document.querySelector(".app").prepend(clone);
+  if (task.doing) {
+    document.querySelector(".app2").prepend(clone);
+  } else {
+    document.querySelector(".app").prepend(clone);
+  }
+  // TO-DO: adding the task to the to-do column right after it's clicked
 }
 
 function clickedDetails(id) {
