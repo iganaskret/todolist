@@ -180,6 +180,7 @@ function putDoing(id) {
         parentElement.classList.remove("doing");
         parentElement.querySelector("button.doing").textContent = "doing";
       }
+      location.reload();
     });
 }
 

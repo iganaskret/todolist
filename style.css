@@ -3,6 +3,10 @@
   place-items: center;
 }
 
+.app2 {
+  background-color: red;
+}
+
 #addform {
   border: 1px black solid;
   padding: 30px;
